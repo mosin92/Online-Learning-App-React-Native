@@ -16,6 +16,9 @@ const CategoryCard = ({ containerStyle, category }) => {
                     justifyContent: 'flex-end',
                     ...containerStyle
                 }}
+                imageStyle={{
+                    borderRadius:SIZES.radius
+                }}
             >
                 <Text
                     style={{
