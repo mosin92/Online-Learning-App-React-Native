@@ -1,10 +1,13 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { COLORS, FONTS, icons, SIZES } from '../constants'
+import { useSelector } from 'react-redux'
 
 const ProfileValue = ({
     icon, label, value
 }) => {
+
+    const appTheme = useSelector(state => state.appTheme)
 
     return (
 
@@ -24,11 +27,11 @@ const ProfileValue = ({
                     justifyContent: 'center',
                     alignItems: 'center',
                     borderRadius: 20,
-                    backgroundColor: COLORS.additionalColor11
+                    backgroundColor: appTheme?.backgroundColor3
                 }}
             >
                 <Image
-                resizeMode='contain'
+                    resizeMode='contain'
                     source={icon}
                     style={{
                         width: 25,
@@ -60,7 +63,7 @@ const ProfileValue = ({
 
                 <Text
                     style={{
-                        color: COLORS.black,
+                        color: appTheme?.textColor,
                         ...FONTS.h3
                     }}
                 >
@@ -72,7 +75,8 @@ const ProfileValue = ({
                 source={icons.right_arrow}
                 style={{
                     width: 15,
-                    height: 15
+                    height: 15,
+                    tintColor: appTheme?.tintColor
                 }}
             />
 

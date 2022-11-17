@@ -2,12 +2,30 @@ import { View, Text, ScrollView, TouchableOpacity, Image, StyleSheet } from 'rea
 import React, { useState } from 'react'
 import { COLORS, FONTS, icons, images, SIZES } from '../../constants'
 import { IconButton, LineDivider, ProfileRadioButton, ProfileValue, ProgressBar, TextButton } from '../../components'
+import { useDispatch, useSelector } from 'react-redux'
+import { ToggleTheme } from '../../Store/ThemeAction'
 
 const Profile = () => {
 
+    const dispatch = useDispatch()
     const [NewcourseNotification, setnewCourseNotification] = useState(false)
     const [studyReminder, setStudyReminder] = useState(false)
 
+    const apptheme = useSelector(state => state.appTheme)
+    console.log("----- app theme --- ", apptheme)
+
+    // handler 
+
+    const ToggleThemeHandler = () => {
+        if (apptheme?.name == 'dark') {
+            dispatch(ToggleTheme('light'))
+        }
+        else {
+            dispatch(ToggleTheme('dark'))
+        }
+    }
+
+    // render
     const renderHeader = () => {
         return (
             <View
@@ -24,7 +42,7 @@ const Profile = () => {
 
                 <Text
                     style={{
-                        color: COLORS.black,
+                        color: apptheme?.textColor,
                         ...FONTS.h2
                     }}
                 >
@@ -32,9 +50,10 @@ const Profile = () => {
                 </Text>
 
                 <IconButton
+                    onPress={() => ToggleThemeHandler()}
                     icon={icons.sun}
                     iconStyle={{
-                        tintColor: COLORS.black
+                        tintColor: apptheme?.tintColor
                     }}
                 />
             </View>
@@ -47,7 +66,7 @@ const Profile = () => {
             <View
                 style={{
                     flex: 1,
-                    backgroundColor: COLORS.primary3,
+                    backgroundColor: apptheme?.backgroundColor2,
                     marginTop: SIZES.padding,
                     flexDirection: 'row',
                     paddingHorizontal: SIZES.radius,
@@ -184,7 +203,7 @@ const Profile = () => {
                     <TextButton
                         label={"+ Become Member"}
                         containerStyle={{
-                            backgroundColor: COLORS.white,
+                            backgroundColor: apptheme?.backgroundColor4,
                             borderRadius: SIZES.padding,
                             justifyContent: 'center',
                             alignItems: 'center',
@@ -193,7 +212,7 @@ const Profile = () => {
                             height: 35
                         }}
                         labelStyle={{
-                            color: COLORS.primary
+                            color: apptheme?.textColor2
                         }}
                     />
 
@@ -280,7 +299,7 @@ const Profile = () => {
         <View
             style={{
                 flex: 1,
-                backgroundColor: COLORS.white
+                backgroundColor: apptheme?.backgroundColor1
             }}
         >
             {/* header */}

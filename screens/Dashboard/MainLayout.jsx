@@ -4,6 +4,8 @@ import { Shadow } from 'react-native-shadow-2'
 import LinearGradient from 'react-native-linear-gradient';
 import { COLORS, constants, FONTS, SIZES, } from '../../constants'
 import { Home, Profile, Search } from '../../screens'
+import { useSelector } from 'react-redux'
+
 
 const bottom_tabs = constants.bottom_tabs.map(items => (
     {
@@ -11,7 +13,6 @@ const bottom_tabs = constants.bottom_tabs.map(items => (
         ref: React.createRef()
     }
 ))
-
 
 const TabIndicator = ({ measureLayout, ScrollX }) => {
 
@@ -128,6 +129,7 @@ const Tabs = ({ ScrollX, onBottomTabPress }) => {
 
 const MainLayout = () => {
 
+    const appTheme = useSelector(state => state.appTheme)
     const flatlistRef = useRef()
     const ScrollX = useRef(new Animated.Value(0)).current
 
@@ -190,9 +192,10 @@ const MainLayout = () => {
             <View
                 style={{
                     paddingHorizontal: SIZES.padding,
-                    paddingVertical: SIZES.radius,
+                    paddingVertical: SIZES.base,
                     height: 105,
-                    width: SIZES.width - (SIZES.padding * 2)
+                    width: "100%",
+                    backgroundColor: appTheme?.backgroundColor1
                 }}
             >
                 <Shadow
@@ -202,7 +205,7 @@ const MainLayout = () => {
                 >
                     <View
                         style={{
-                            backgroundColor: COLORS.primary3,
+                            backgroundColor:appTheme?.backgroundColor2,
                             flex: 1,
                             borderRadius: SIZES.radius,
                             width: SIZES.width - (SIZES.padding * 2)

@@ -24,7 +24,7 @@ const IconLabel = ({ containerStyle, icon, iconStyle, label, labelStyle }) => {
             <Text
                 style={{
                     color: COLORS.gray30,
-                    marginLeft: SIZES.radius,
+                    marginLeft: SIZES.base,
                     ...FONTS.body3,
                     ...labelStyle
                 }}
