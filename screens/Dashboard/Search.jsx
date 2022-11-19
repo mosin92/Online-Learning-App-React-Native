@@ -5,9 +5,11 @@ import Animated, { useAnimatedScrollHandler, useAnimatedStyle, useSharedValue, i
 import { FlatList } from 'react-native-gesture-handler'
 import { CategoryCard, TextButton } from '../../components'
 import { Shadow } from 'react-native-shadow-2'
+import { useNavigation } from '@react-navigation/native'
 
 const Search = () => {
 
+    const navigation = useNavigation()
     const scrollviewRef = useRef()
     const ScrollY = useSharedValue(0)
     const onScroll = useAnimatedScrollHandler(event => {
@@ -94,12 +96,16 @@ const Search = () => {
                     keyboardDismissMode='on-drag'
                     renderItem={({ item, index }) => (
                         <CategoryCard
+                            sharedElmentPrefix="Search"
                             category={item}
                             containerStyle={{
                                 width: (SIZES.width - (SIZES.padding * 2) - SIZES.radius) / 2,
                                 marginLeft: (index + 1) % 2 == 0 ? SIZES.radius : 0,
                                 marginTop: SIZES.radius
                             }}
+                            onPress={() => navigation.navigate("CourseListing", {
+                                category: item, sharedElmentPrefix: "Search"
+                            })}
                         />
                     )}
                 />

@@ -1,34 +1,63 @@
-import { TouchableOpacity, ImageBackground, Text } from 'react-native'
+import { TouchableOpacity, ImageBackground, Text, Image, View, StyleSheet } from 'react-native'
 import React from 'react'
 import { COLORS, FONTS, SIZES } from '../constants'
-
-const CategoryCard = ({ containerStyle, category }) => {
+import { SharedElement } from 'react-navigation-shared-element'
+const CategoryCard = ({ sharedElmentPrefix, containerStyle, category, onPress }) => {
     return (
-        <TouchableOpacity>
-            <ImageBackground
-                resizeMode='cover'
-                source={category?.thumbnail}
+        <TouchableOpacity
+            onPress={onPress}
+            style={{
+                width: 200,
+                height: 150,
+                ...containerStyle
+            }}
+        >
+
+            <SharedElement
+                id={`${sharedElmentPrefix}-category-image-${category?.id}`}
+                style={[StyleSheet.absoluteFillObject]}
+            >
+                <Image
+
+                    source={category?.thumbnail}
+                    resizeMode='cover'
+                    style={{
+                        height: '100%',
+                        width: '100%',
+                        borderRadius: SIZES.radius,
+                        justifyContent: 'flex-end',
+                    }}
+                />
+
+            </SharedElement>
+
+            {/* Title */}
+
+            <View
                 style={{
-                    height: 150,
-                    width: 200,
-                    paddingHorizontal: SIZES.radius,
-                    paddingVertical: SIZES.padding,
-                    justifyContent: 'flex-end',
-                    ...containerStyle
-                }}
-                imageStyle={{
-                    borderRadius:SIZES.radius
+                    position: 'absolute',
+                    bottom: 50,
+                    left: 5
                 }}
             >
-                <Text
-                    style={{
-                        color: COLORS.white,
-                        ...FONTS.h2
-                    }}
+                <SharedElement
+                    id={`${sharedElmentPrefix}-category-title-${category?.id}`}
+                    style={[StyleSheet.absoluteFillObject]}
                 >
-                    {category.title}
-                </Text>
-            </ImageBackground>
+                    <Text
+                        style={{
+                            position:'absolute',
+                            color: COLORS.white,
+                            ...FONTS.h3,
+                            fontSize: 20
+                        }}
+                    >
+                        {category.title}
+                    </Text>
+                </SharedElement>
+
+            </View>
+
         </TouchableOpacity>
     )
 }
